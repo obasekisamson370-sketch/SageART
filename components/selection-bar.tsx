@@ -2,17 +2,19 @@
 
 import { useSelection } from "./selection-provider";
 import { waLink } from "@/lib/whatsapp";
+import { encodeSelection } from "@/lib/share-encode";
+import { describeOptions } from "@/lib/frame-options";
 
 export function SelectionBar() {
-  const { items, ids, clear, hydrated } = useSelection();
+  const { items, clear, hydrated } = useSelection();
 
   if (!hydrated || items.length === 0) return null;
 
   function buildWhatsAppLink() {
     const origin = typeof window !== "undefined" ? window.location.origin : "";
-    const shareUrl = `${origin}/share?ids=${ids.join(",")}`;
-    const titles = items.map((i) => `• ${i.title}`).join("\n");
-    const message = `Hi! I'm interested in these SageART portraits:\n${titles}\n\nView them here: ${shareUrl}`;
+    const shareUrl = `${origin}/share?sel=${encodeSelection(items)}`;
+    const lines = items.map((i) => `• ${i.title}\n   ${describeOptions(i.options)}`).join("\n");
+    const message = `Hi! I'd like to order these SageART portraits:\n\n${lines}\n\nFull preview: ${shareUrl}`;
     return waLink(message);
   }
 

@@ -32,6 +32,20 @@
   color-scheme: dark;
 }
 
+/* native-app feel */
+html {
+  touch-action: manipulation; /* kills double-tap zoom */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  overscroll-behavior-y: none; /* no rubber-band page bounce */
+}
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 html,
 body {
   background: var(--color-void);

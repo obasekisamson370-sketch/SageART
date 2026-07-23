@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { SelectionProvider } from "@/components/selection-provider";
+import { NativeFeel } from "@/components/native-feel";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -26,6 +27,8 @@ export const viewport: Viewport = {
   themeColor: "#0a0b0f",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
   viewportFit: "cover",
 };
 
@@ -33,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <body className="font-sans antialiased">
+        <NativeFeel />
         <SelectionProvider>{children}</SelectionProvider>
       </body>
     </html>

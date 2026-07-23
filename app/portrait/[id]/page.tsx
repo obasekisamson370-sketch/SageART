@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabase";
@@ -37,37 +36,7 @@ export default async function PortraitPage({ params }: { params: Promise<{ id: s
           Back to gallery
         </Link>
 
-        <div className="grid gap-8 md:grid-cols-[1.15fr_1fr]">
-          <div className="hud-frame relative aspect-[4/5] w-full overflow-hidden rounded-card border border-hairline bg-surface-2">
-            <Image
-              src={portrait.image_url}
-              alt={portrait.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 55vw"
-              priority
-              className="object-cover"
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <h1 className="font-display text-3xl font-bold tracking-tight text-ink">{portrait.title}</h1>
-            {portrait.tags?.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {portrait.tags.map((t) => (
-                  <span key={t} className="rounded-full border border-hairline px-2.5 py-1 text-xs text-ink-soft">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            )}
-            <p className="mt-4 text-ink-soft">
-              Select this piece and preview it on your own wall. When you&apos;re ready, send your picks to
-              the artist on WhatsApp to talk price and delivery.
-            </p>
-
-            <PortraitDetailActions portrait={portrait} />
-          </div>
-        </div>
+        <PortraitDetailActions portrait={portrait} />
       </main>
       <SelectionBar />
     </div>
