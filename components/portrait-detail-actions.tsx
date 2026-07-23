@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import type { PublicPortrait } from "@/lib/types";
 import { useSelection } from "./selection-provider";
-import { ArPreview } from "./ar-preview";
 import { FramedImage } from "./framed-image";
+
+// three.js + model-viewer are heavy — only load them when AR actually opens.
+const ArPreview = dynamic(() => import("./ar-preview").then((m) => m.ArPreview), { ssr: false });
 import {
   DEFAULT_OPTIONS,
   FRAME_COLORS,
