@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+/* ---- SageART design system — Warframe sci-fi ---- */
+@theme {
+  /* canvas */
+  --color-void: #0a0b0f;
+  --color-surface: #12141b;
+  --color-surface-2: #191c26;
+  --color-hairline: #262a37;
+
+  /* energy accent */
+  --color-energy: #3be8d0;
+  --color-energy-dim: #1f8f80;
+  --color-energy-glow: color-mix(in srgb, #3be8d0 22%, transparent);
+
+  /* text */
+  --color-ink: #eef2f6;
+  --color-ink-soft: #aab3c0;
+  --color-ink-faint: #6b7382;
+
+  /* status */
+  --color-danger: #ff5d5d;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-card: 14px;
+}
+
+/* System fonts fallback loaded via next/font in layout */
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-void);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+  /* subtle vignette + energy haze */
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--color-energy) 6%, transparent), transparent 60%),
+    radial-gradient(100% 60% at 50% 120%, color-mix(in srgb, #1a2530 40%, transparent), transparent 70%);
+}
+
+/* HUD corner-bracket frame — decorative */
+.hud-frame {
+  position: relative;
+}
+.hud-frame::before,
+.hud-frame::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-energy);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.hud-frame::before {
+  top: 8px;
+  left: 8px;
+  border-right: none;
+  border-bottom: none;
+}
+.hud-frame::after {
+  bottom: 8px;
+  right: 8px;
+  border-left: none;
+  border-top: none;
+}
+
+/* focus ring */
+*:focus-visible {
+  outline: 2px solid var(--color-energy);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* thin scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-hairline) transparent;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-rise {
+  animation: rise 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--color-energy-glow);
+  }
+  50% {
+    box-shadow: 0 0 18px 2px var(--color-energy-glow);
+  }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-pulse-glow {
+    animation: none;
+  }
+}
